@@ -5,6 +5,10 @@ import cookieParser from 'cookie-parser';
 import passport from 'passport';
 import { configurePassport } from './config/passport.js';
 import authRoutes from './routes/authRoutes.js';
+import productRoutes from './routes/productRoutes.js';
+import categoryRoutes from './routes/categoryRoutes.js';
+import artisanProductRoutes from './routes/artisanProductRoutes.js';
+import adminProductRoutes from './routes/adminProductRoutes.js';
 
 // Base Express app. Feature routes/controllers are added phase-by-phase.
 const app = express();
@@ -28,6 +32,10 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/artisan/products', artisanProductRoutes);
+app.use('/api/admin/products', adminProductRoutes);
 
 // Central error handler.
 // eslint-disable-next-line no-unused-vars
