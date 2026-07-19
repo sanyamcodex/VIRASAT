@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -55,7 +55,13 @@ export default function ArtisanLogin() {
           </Button>
         </form>
 
-        <p className="mt-6 text-center text-xs text-navy/50">
+        <p className="mt-6 text-center text-sm text-navy/60">
+          New artisan?{' '}
+          <Link to="/artisan/register" className="text-terracotta hover:underline">
+            Apply here
+          </Link>
+        </p>
+        <p className="mt-2 text-center text-xs text-navy/50">
           Access is enabled once an admin approves your artisan account.
         </p>
       </div>

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const COLUMNS = [
   { title: 'Shop', links: ['Art Forms', 'Paintings', 'Textiles & Handloom', 'All Products'] },
   { title: 'Artisans', links: ['Their Stories', 'Become a Seller', 'Verification'] },
@@ -41,6 +43,15 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-cream/10 py-4 text-center text-xs text-cream/60">
+        <div className="mb-2 flex justify-center gap-4 text-cream/40">
+          <Link to="/artisan/login" className="hover:text-cream/70">
+            Artisan login
+          </Link>
+          <span>·</span>
+          <Link to="/admin/login" className="hover:text-cream/70">
+            Admin login
+          </Link>
+        </div>
         © {new Date().getFullYear()} VIRASAT. All rights reserved.
       </div>
     </footer>

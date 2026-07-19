@@ -21,6 +21,7 @@ export default function ProductDetail() {
   const toggle = useWishlistStore((s) => s.toggle);
   const { register, handleSubmit, reset, formState } = useForm();
   const [submitErr, setSubmitErr] = useState('');
+  const [broken, setBroken] = useState(false);
 
   if (loading) return <Loader />;
   if (error) return <ErrorState message={error} />;
@@ -49,8 +50,13 @@ export default function ProductDetail() {
         {/* Gallery */}
         <div>
           <div className="aspect-[4/5] overflow-hidden rounded-lg bg-white ring-1 ring-navy/5">
-            {img ? (
-              <img src={img} alt={product.title} className="h-full w-full object-cover" />
+            {img && !broken ? (
+              <img
+                src={img}
+                alt={product.title}
+                className="h-full w-full object-cover"
+                onError={() => setBroken(true)}
+              />
             ) : (
               <div className="grid h-full place-items-center text-navy/30">No image</div>
             )}

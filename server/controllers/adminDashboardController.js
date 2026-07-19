@@ -68,6 +68,15 @@ export const approveArtisan = asyncHandler(async (req, res) => {
   res.json(profile);
 });
 
+// PATCH /api/admin/artisans/:id/feature — toggle homepage featured flag.
+export const featureArtisan = asyncHandler(async (req, res) => {
+  const profile = await ArtisanProfile.findById(req.params.id);
+  if (!profile) return res.status(404).json({ message: 'Artisan not found' });
+  profile.featured = !profile.featured;
+  await profile.save();
+  res.json({ id: profile._id, featured: profile.featured });
+});
+
 // GET /api/admin/users?role= — user list (passwords excluded by schema).
 export const listUsers = asyncHandler(async (req, res) => {
   const filter = {};

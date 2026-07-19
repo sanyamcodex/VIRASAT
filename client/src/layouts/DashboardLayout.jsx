@@ -8,7 +8,7 @@ const itemClass = ({ isActive }) =>
   }`;
 
 // Shared sidebar shell for the artisan + admin dashboards.
-export default function DashboardLayout({ title, items, children }) {
+export default function DashboardLayout({ title, items, loginPath = '/login', children }) {
   const navigate = useNavigate();
 
   return (
@@ -28,10 +28,10 @@ export default function DashboardLayout({ title, items, children }) {
         <Button
           variant="ghost"
           size="sm"
-          className="justify-start text-cream/80 hover:bg-cream/10 hover:text-cream"
+          className="justify-start !text-cream/80 hover:bg-cream/10 hover:!text-cream"
           onClick={async () => {
             await doLogout();
-            navigate('/login');
+            navigate(loginPath);
           }}
         >
           Log out

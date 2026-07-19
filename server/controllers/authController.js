@@ -41,7 +41,12 @@ const makeRegister = (role) =>
     const user = await User.create({ name, email, password, role });
     if (role === 'artisan') {
       // verified defaults false → held pending until an admin approves.
-      await ArtisanProfile.create({ user: user._id });
+      await ArtisanProfile.create({
+        user: user._id,
+        craft: req.body.craft,
+        region: req.body.region,
+        phone: req.body.phone,
+      });
     }
     const accessToken = issueTokens(res, user);
     res.status(201).json({ accessToken, user: publicUser(user) });

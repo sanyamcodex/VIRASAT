@@ -13,7 +13,7 @@ const ITEMS = [
 
 export default function AdminLayout() {
   return (
-    <DashboardLayout title="Admin" items={ITEMS}>
+    <DashboardLayout title="Admin" items={ITEMS} loginPath="/admin/login">
       <Outlet />
     </DashboardLayout>
   );

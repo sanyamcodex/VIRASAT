@@ -6,6 +6,7 @@ import {
   getPlatformSummary,
   listArtisans,
   approveArtisan,
+  featureArtisan,
   listUsers,
   setUserDisabled,
 } from '../controllers/adminDashboardController.js';
@@ -21,6 +22,7 @@ router.use(requireAuth, requireRole('admin'));
 router.get('/summary', getPlatformSummary);
 router.get('/artisans', listArtisans);
 router.patch('/artisans/:id/approve', approveArtisan);
+router.patch('/artisans/:id/feature', featureArtisan);
 router.get('/users', listUsers);
 router.patch('/users/:id/disable', validate(disableSchema), setUserDisabled);
 

@@ -12,7 +12,7 @@ const ITEMS = [
 
 export default function ArtisanLayout() {
   return (
-    <DashboardLayout title="Artisan" items={ITEMS}>
+    <DashboardLayout title="Artisan" items={ITEMS} loginPath="/artisan/login">
       <Outlet />
     </DashboardLayout>
   );

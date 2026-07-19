@@ -3,6 +3,7 @@ import useFetch from '../../hooks/useFetch';
 import Button from '../../components/ui/Button';
 import ProductCard from '../../components/ProductCard';
 import CategoryCard from '../../components/CategoryCard';
+import FeaturedArtisans from '../../components/FeaturedArtisans';
 import { Loader, ErrorState, Empty } from '../../components/StateViews';
 
 export default function Home() {
@@ -30,8 +31,8 @@ export default function Home() {
               <Button as={Link} to="/shop" size="lg">
                 Shop the collection
               </Button>
-              <Button as={Link} to="/art-forms" size="lg" variant="outline" className="border-cream/30 text-cream hover:bg-cream/10">
-                Explore art forms
+              <Button as={Link} to="/art-forms" size="lg" variant="outline" className="!text-cream !border-cream/40 hover:bg-cream/10">
+                Explore Art Forms
               </Button>
             </div>
           </div>
@@ -45,6 +46,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Featured artisans (hidden when none) */}
+      <FeaturedArtisans />
 
       {/* Category browse */}
       <section className="mx-auto max-w-7xl px-6 py-16">

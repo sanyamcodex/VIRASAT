@@ -17,6 +17,11 @@ export default function Artisans() {
     refetch();
   };
 
+  const toggleFeatured = async (id) => {
+    await api.patch(`/admin/artisans/${id}/feature`);
+    refetch();
+  };
+
   return (
     <div>
       <h1 className="font-display text-3xl text-navy">Artisan approvals</h1>
@@ -55,7 +60,17 @@ export default function Artisans() {
                 </div>
               </div>
               {a.verified ? (
-                <Badge variant="gi">Verified</Badge>
+                <>
+                  {/* Star toggles homepage featuring (only verified artisans surface publicly). */}
+                  <button
+                    onClick={() => toggleFeatured(a._id)}
+                    title={a.featured ? 'Unfeature from homepage' : 'Feature on homepage'}
+                    className={`text-xl leading-none ${a.featured ? 'text-gold' : 'text-navy/25 hover:text-gold'}`}
+                  >
+                    {a.featured ? '★' : '☆'}
+                  </button>
+                  <Badge variant="gi">Verified</Badge>
+                </>
               ) : (
                 <Button size="sm" onClick={() => approve(a._id)}>
                   Approve

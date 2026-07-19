@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Card from './ui/Card';
 import Button from './ui/Button';
@@ -11,14 +12,20 @@ export default function ProductCard({ product }) {
   const addItem = useCartStore((s) => s.addItem);
   const toggle = useWishlistStore((s) => s.toggle);
   const inWishlist = useWishlistStore((s) => s.items.some((i) => i._id === product._id));
+  const [broken, setBroken] = useState(false);
   const img = product.images?.[0]?.url;
 
   return (
     <Card polaroid className="flex flex-col">
       <Link to={`/product/${product._id}`}>
         <div className="aspect-[4/5] overflow-hidden rounded-sm bg-navy/5">
-          {img ? (
-            <img src={img} alt={product.title} className="h-full w-full object-cover" />
+          {img && !broken ? (
+            <img
+              src={img}
+              alt={product.title}
+              className="h-full w-full object-cover"
+              onError={() => setBroken(true)}
+            />
           ) : (
             <div className="grid h-full place-items-center text-sm text-navy/30">
               No image

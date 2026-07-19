@@ -16,13 +16,19 @@ const loginSchema = z.object({
   email: z.string().email(),
   password: z.string().min(1),
 });
+// Artisans also submit their craft/region/phone at signup (all optional).
+const artisanRegisterSchema = registerSchema.extend({
+  craft: z.string().optional(),
+  region: z.string().optional(),
+  phone: z.string().optional(),
+});
 
 // Rate-limit every auth route.
 router.use(authLimiter);
 
 router.post('/user/register', validate(registerSchema), auth.registerUser);
 router.post('/user/login', validate(loginSchema), auth.loginUser);
-router.post('/artisan/register', validate(registerSchema), auth.registerArtisan);
+router.post('/artisan/register', validate(artisanRegisterSchema), auth.registerArtisan);
 router.post('/artisan/login', validate(loginSchema), auth.loginArtisan);
 // Admin has no registration route (seeded only) — but does need to log in.
 router.post('/admin/login', validate(loginSchema), auth.loginAdmin);

@@ -40,6 +40,11 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3">
+          {accessToken && role === 'user' && (
+            <Link to="/orders" className="text-sm text-navy/70 hover:text-navy">
+              My Orders
+            </Link>
+          )}
           <Link to="/wishlist" className="text-sm text-navy/70 hover:text-navy">
             Wishlist
           </Link>

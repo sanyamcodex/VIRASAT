@@ -4,6 +4,14 @@ import { asyncHandler } from '../utils/asyncHandler.js';
 
 const OID = /^[0-9a-fA-F]{24}$/;
 
+// GET /api/artisans/featured — public: up to 6 verified + featured artisans.
+export const getFeaturedArtisans = asyncHandler(async (req, res) => {
+  const artisans = await ArtisanProfile.find({ verified: true, featured: true })
+    .populate('user', 'name')
+    .limit(6);
+  res.json(artisans);
+});
+
 // GET /api/artisans/:id — public artisan story page: verified profile + their
 // published products.
 export const getArtisanPublic = asyncHandler(async (req, res) => {

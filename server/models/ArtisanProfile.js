@@ -11,6 +11,7 @@ const artisanProfileSchema = new mongoose.Schema(
     bio: { type: String },
     region: { type: String },
     craft: { type: String },
+    phone: { type: String },
     story: { type: String },
     photos: [
       {
@@ -20,6 +21,8 @@ const artisanProfileSchema = new mongoose.Schema(
     ],
     // Stays false until an admin verifies the artisan (Phase 5).
     verified: { type: Boolean, default: false },
+    // Homepage curation flag (admin-controlled).
+    featured: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

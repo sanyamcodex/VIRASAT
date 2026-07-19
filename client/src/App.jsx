@@ -27,6 +27,7 @@ import ArtisanProfile from './pages/artisan/Profile';
 import ArtisanOrders from './pages/artisan/Orders';
 import ArtisanNotifications from './pages/artisan/Notifications';
 import ArtisanLogin from './pages/artisan/Login';
+import ArtisanRegister from './pages/artisan/Register';
 
 // Admin dashboard pages (Phase 9)
 import AdminOverview from './pages/admin/Overview';
@@ -64,6 +65,7 @@ export default function App() {
 
           {/* ---------- Role-specific logins (public, unlinked from storefront nav) ---------- */}
           <Route path="/artisan/login" element={<ArtisanLogin />} />
+          <Route path="/artisan/register" element={<ArtisanRegister />} />
           <Route path="/admin/login" element={<AdminLogin />} />
 
           {/* ---------- Artisan dashboard ---------- */}
