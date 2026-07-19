@@ -19,7 +19,15 @@ import Login from './pages/storefront/Login';
 import Register from './pages/storefront/Register';
 import Wishlist from './pages/storefront/Wishlist';
 
-// Placeholder helper — dashboard pages land in Phases 8–9.
+// Artisan dashboard pages (Phase 8)
+import ArtisanOverview from './pages/artisan/Overview';
+import ArtisanProducts from './pages/artisan/Products';
+import ArtisanProductForm from './pages/artisan/ProductForm';
+import ArtisanProfile from './pages/artisan/Profile';
+import ArtisanOrders from './pages/artisan/Orders';
+import ArtisanNotifications from './pages/artisan/Notifications';
+
+// Placeholder helper — admin pages land in Phase 9.
 const P = (title, subtitle) => <PagePlaceholder title={title} subtitle={subtitle} />;
 
 export default function App() {
@@ -49,12 +57,13 @@ export default function App() {
           {/* ---------- Artisan dashboard ---------- */}
           <Route element={<ProtectedRoute roles={['artisan']} />}>
             <Route path="/artisan" element={<ArtisanLayout />}>
-              <Route index element={P('Sales Overview')} />
-              <Route path="products" element={P('My Products')} />
-              <Route path="products/new" element={P('Add Product')} />
-              <Route path="profile" element={P('Story & Profile')} />
-              <Route path="orders" element={P('Order Fulfillment')} />
-              <Route path="notifications" element={P('Notifications')} />
+              <Route index element={<ArtisanOverview />} />
+              <Route path="products" element={<ArtisanProducts />} />
+              <Route path="products/new" element={<ArtisanProductForm />} />
+              <Route path="products/:id/edit" element={<ArtisanProductForm />} />
+              <Route path="profile" element={<ArtisanProfile />} />
+              <Route path="orders" element={<ArtisanOrders />} />
+              <Route path="notifications" element={<ArtisanNotifications />} />
             </Route>
           </Route>
 
