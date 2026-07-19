@@ -27,8 +27,14 @@ import ArtisanProfile from './pages/artisan/Profile';
 import ArtisanOrders from './pages/artisan/Orders';
 import ArtisanNotifications from './pages/artisan/Notifications';
 
-// Placeholder helper — admin pages land in Phase 9.
-const P = (title, subtitle) => <PagePlaceholder title={title} subtitle={subtitle} />;
+// Admin dashboard pages (Phase 9)
+import AdminOverview from './pages/admin/Overview';
+import AdminOrders from './pages/admin/Orders';
+import AdminModeration from './pages/admin/Moderation';
+import AdminDirectListing from './pages/admin/DirectListing';
+import AdminArtisans from './pages/admin/Artisans';
+import AdminUsers from './pages/admin/Users';
+import AdminCategories from './pages/admin/Categories';
 
 export default function App() {
   return (
@@ -70,16 +76,17 @@ export default function App() {
           {/* ---------- Admin dashboard ---------- */}
           <Route element={<ProtectedRoute roles={['admin']} />}>
             <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={P('Platform Overview')} />
-              <Route path="orders" element={P('Order Management')} />
-              <Route path="moderation" element={P('Moderation Queue')} />
-              <Route path="artisans" element={P('Artisan Approvals')} />
-              <Route path="users" element={P('User Management')} />
-              <Route path="categories" element={P('Category Management')} />
+              <Route index element={<AdminOverview />} />
+              <Route path="orders" element={<AdminOrders />} />
+              <Route path="moderation" element={<AdminModeration />} />
+              <Route path="products/new" element={<AdminDirectListing />} />
+              <Route path="artisans" element={<AdminArtisans />} />
+              <Route path="users" element={<AdminUsers />} />
+              <Route path="categories" element={<AdminCategories />} />
             </Route>
           </Route>
 
-          <Route path="*" element={P('404', 'This page does not exist.')} />
+          <Route path="*" element={<PagePlaceholder title="404" subtitle="This page does not exist." />} />
         </Routes>
       </AuthBootstrap>
     </BrowserRouter>

@@ -150,6 +150,29 @@ export const getMyOrder = asyncHandler(async (req, res) => {
   res.json(order);
 });
 
+// ---------- Order management (role=admin) ----------
+
+// GET /api/admin/orders?status= — all orders with buyer info.
+export const listAllOrders = asyncHandler(async (req, res) => {
+  const filter = {};
+  if (req.query.status) filter.status = String(req.query.status);
+  const orders = await Order.find(filter)
+    .populate('user', 'name email')
+    .sort({ createdAt: -1 });
+  res.json(orders);
+});
+
+// PATCH /api/admin/orders/:id/status  { status } — admin override of order status.
+export const updateOrderStatus = asyncHandler(async (req, res) => {
+  const order = await Order.findByIdAndUpdate(
+    req.params.id,
+    { status: req.body.status },
+    { new: true, runValidators: true }
+  );
+  if (!order) return res.status(404).json({ message: 'Order not found' });
+  res.json(order);
+});
+
 // ---------- Fulfillment (role=artisan) ----------
 
 // GET /api/artisan/orders — paid orders containing this artisan's items (items filtered to theirs).

@@ -15,6 +15,7 @@ import orderRoutes from './routes/orderRoutes.js';
 import artisanOrderRoutes from './routes/artisanOrderRoutes.js';
 import artisanDashboardRoutes from './routes/artisanDashboardRoutes.js';
 import adminDashboardRoutes from './routes/adminDashboardRoutes.js';
+import adminOrderRoutes from './routes/adminOrderRoutes.js';
 import artisanPublicRoutes from './routes/artisanPublicRoutes.js';
 import { razorpayWebhook } from './controllers/orderController.js';
 
@@ -54,6 +55,7 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/artisans', artisanPublicRoutes);
 app.use('/api/artisan/products', artisanProductRoutes);
 app.use('/api/admin/products', adminProductRoutes);
+app.use('/api/admin/orders', adminOrderRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/checkout', checkoutRoutes);
 app.use('/api/orders', orderRoutes);
