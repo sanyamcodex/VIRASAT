@@ -22,8 +22,8 @@ export default function Navbar() {
   const { accessToken, role } = useAuthStore();
   const cartCount = useCartStore((s) => s.items.reduce((n, i) => n + i.quantity, 0));
 
-  const dashboardPath = role === 'artisan' ? '/artisan' : role === 'admin' ? '/admin' : null;
-
+  // The public storefront nav never links to the artisan/admin dashboards —
+  // those are reached via their own login URLs (and the footer links).
   return (
     <header className="sticky top-0 z-40 border-b border-navy/10 bg-cream/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
@@ -52,23 +52,16 @@ export default function Navbar() {
             Cart{cartCount > 0 && <span className="ml-1 rounded-full bg-terracotta px-1.5 text-xs text-cream">{cartCount}</span>}
           </Link>
           {accessToken ? (
-            <>
-              {dashboardPath && (
-                <Button as={Link} to={dashboardPath} variant="outline" size="sm">
-                  Dashboard
-                </Button>
-              )}
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={async () => {
-                  await doLogout();
-                  navigate('/');
-                }}
-              >
-                Log out
-              </Button>
-            </>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={async () => {
+                await doLogout();
+                navigate('/');
+              }}
+            >
+              Log out
+            </Button>
           ) : (
             <Button as={Link} to="/login" variant="primary" size="sm">
               Log in
