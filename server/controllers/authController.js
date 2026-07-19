@@ -57,6 +57,8 @@ const makeLogin = (role) =>
     const user = await User.findOne({ email, role }).select('+password');
     if (!user || !user.password || !(await user.comparePassword(password)))
       return res.status(401).json({ message: 'Invalid credentials' });
+    if (user.disabled)
+      return res.status(403).json({ message: 'Account is disabled' });
 
     const accessToken = issueTokens(res, user);
     res.json({ accessToken, user: publicUser(user) });

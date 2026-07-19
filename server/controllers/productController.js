@@ -35,6 +35,7 @@ export const listProducts = asyncHandler(async (req, res) => {
     const rx = new RegExp(escapeRegExp(String(q)), 'i');
     filter.$or = [{ title: rx }, { description: rx }];
   }
+  if (req.query.featured === 'true') filter.featured = true; // homepage curation
 
   const [items, total] = await Promise.all([
     Product.find(filter)
@@ -179,6 +180,17 @@ export const updateProduct = asyncHandler(async (req, res) => {
     req.params.id,
     pickEditable(req.body),
     { new: true, runValidators: true }
+  );
+  if (!product) return res.status(404).json({ message: 'Product not found' });
+  res.json(product);
+});
+
+// PATCH /api/admin/products/:id/featured — homepage curation toggle.
+export const setProductFeatured = asyncHandler(async (req, res) => {
+  const product = await Product.findByIdAndUpdate(
+    req.params.id,
+    { featured: req.body.featured },
+    { new: true }
   );
   if (!product) return res.status(404).json({ message: 'Product not found' });
   res.json(product);

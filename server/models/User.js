@@ -26,6 +26,8 @@ const userSchema = new mongoose.Schema(
       default: 'user',
     },
     googleId: { type: String },
+    // Admin can disable an account (blocks login). Admins can't be disabled.
+    disabled: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

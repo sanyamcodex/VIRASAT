@@ -32,3 +32,14 @@ export const deleteCategory = asyncHandler(async (req, res) => {
   if (!category) return res.status(404).json({ message: 'Category not found' });
   res.json({ message: 'Category deleted' });
 });
+
+// PATCH /api/categories/:id/featured — homepage curation toggle (admin).
+export const setCategoryFeatured = asyncHandler(async (req, res) => {
+  const category = await Category.findByIdAndUpdate(
+    req.params.id,
+    { featured: req.body.featured },
+    { new: true }
+  );
+  if (!category) return res.status(404).json({ message: 'Category not found' });
+  res.json(category);
+});

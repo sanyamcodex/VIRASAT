@@ -10,6 +10,7 @@ import {
   rejectProduct,
   updateProduct,
   createAndPublish,
+  setProductFeatured,
 } from '../controllers/productController.js';
 
 const router = Router();
@@ -24,6 +25,7 @@ const createSchema = z.object({
 });
 const updateSchema = createSchema.partial();
 const rejectSchema = z.object({ reason: z.string().min(1) });
+const featuredSchema = z.object({ featured: z.boolean() });
 
 // All routes: authenticated admins only.
 router.use(requireAuth, requireRole('admin'));
@@ -32,6 +34,7 @@ router.get('/', listAllProducts);
 router.post('/', handleImageUpload, validate(createSchema), processProductImages, createAndPublish);
 router.patch('/:id/approve', approveProduct);
 router.patch('/:id/reject', validate(rejectSchema), rejectProduct);
+router.patch('/:id/featured', validate(featuredSchema), setProductFeatured);
 router.patch('/:id', handleImageUpload, validate(updateSchema), processProductImages, updateProduct);
 
 export default router;

@@ -28,6 +28,8 @@ const productSchema = new mongoose.Schema(
     },
     // Set when an admin rejects; surfaced to the artisan so they can fix + resubmit.
     rejectionReason: { type: String },
+    // Homepage curation flag (admin-controlled).
+    featured: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
