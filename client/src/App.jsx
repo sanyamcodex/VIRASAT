@@ -26,6 +26,7 @@ import ArtisanProductForm from './pages/artisan/ProductForm';
 import ArtisanProfile from './pages/artisan/Profile';
 import ArtisanOrders from './pages/artisan/Orders';
 import ArtisanNotifications from './pages/artisan/Notifications';
+import ArtisanLogin from './pages/artisan/Login';
 
 // Admin dashboard pages (Phase 9)
 import AdminOverview from './pages/admin/Overview';
@@ -35,6 +36,7 @@ import AdminDirectListing from './pages/admin/DirectListing';
 import AdminArtisans from './pages/admin/Artisans';
 import AdminUsers from './pages/admin/Users';
 import AdminCategories from './pages/admin/Categories';
+import AdminLogin from './pages/admin/Login';
 
 export default function App() {
   return (
@@ -59,6 +61,10 @@ export default function App() {
               <Route path="wishlist" element={<Wishlist />} />
             </Route>
           </Route>
+
+          {/* ---------- Role-specific logins (public, unlinked from storefront nav) ---------- */}
+          <Route path="/artisan/login" element={<ArtisanLogin />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
 
           {/* ---------- Artisan dashboard ---------- */}
           <Route element={<ProtectedRoute roles={['artisan']} />}>
