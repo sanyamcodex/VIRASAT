@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* VIRASAT design tokens — consumed by tailwind.config.js */
+  --color-navy: #1b2a4a; /* primary / nav */
+  --color-terracotta: #c9622b; /* accent / CTA */
+  --color-cream: #f7f2e9; /* background */
+  --color-gold: #c9a24b; /* highlights / badges */
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-navy);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Playfair Display', serif;
+}
