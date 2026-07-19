@@ -15,6 +15,7 @@ import orderRoutes from './routes/orderRoutes.js';
 import artisanOrderRoutes from './routes/artisanOrderRoutes.js';
 import artisanDashboardRoutes from './routes/artisanDashboardRoutes.js';
 import adminDashboardRoutes from './routes/adminDashboardRoutes.js';
+import artisanPublicRoutes from './routes/artisanPublicRoutes.js';
 import { razorpayWebhook } from './controllers/orderController.js';
 
 // Base Express app. Feature routes/controllers are added phase-by-phase.
@@ -50,6 +51,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/api/artisans', artisanPublicRoutes);
 app.use('/api/artisan/products', artisanProductRoutes);
 app.use('/api/admin/products', adminProductRoutes);
 app.use('/api/cart', cartRoutes);

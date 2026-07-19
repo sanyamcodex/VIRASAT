@@ -1,5 +1,6 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
+import { useCartStore } from '../store/cartStore';
 import { doLogout } from '../lib/auth';
 import Button from './ui/Button';
 
@@ -19,6 +20,7 @@ const linkClass = ({ isActive }) =>
 export default function Navbar() {
   const navigate = useNavigate();
   const { accessToken, role } = useAuthStore();
+  const cartCount = useCartStore((s) => s.items.reduce((n, i) => n + i.quantity, 0));
 
   const dashboardPath = role === 'artisan' ? '/artisan' : role === 'admin' ? '/admin' : null;
 
@@ -42,7 +44,7 @@ export default function Navbar() {
             Wishlist
           </Link>
           <Link to="/cart" className="text-sm text-navy/70 hover:text-navy">
-            Cart
+            Cart{cartCount > 0 && <span className="ml-1 rounded-full bg-terracotta px-1.5 text-xs text-cream">{cartCount}</span>}
           </Link>
           {accessToken ? (
             <>

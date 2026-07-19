@@ -1,5 +1,6 @@
 import api from './api';
 import { useAuthStore } from '../store/authStore';
+import { useCartStore } from '../store/cartStore';
 
 // Silent session restore on app load using the httpOnly refresh cookie.
 export const bootstrapAuth = async () => {
@@ -8,6 +9,7 @@ export const bootstrapAuth = async () => {
   try {
     const { data } = await api.post('/auth/refresh');
     store.setAccessToken(data.accessToken);
+    if (useAuthStore.getState().role === 'user') useCartStore.getState().hydrate();
   } catch {
     store.logout(); // → status 'guest'
   }
