@@ -9,6 +9,11 @@ import productRoutes from './routes/productRoutes.js';
 import categoryRoutes from './routes/categoryRoutes.js';
 import artisanProductRoutes from './routes/artisanProductRoutes.js';
 import adminProductRoutes from './routes/adminProductRoutes.js';
+import cartRoutes from './routes/cartRoutes.js';
+import checkoutRoutes from './routes/checkoutRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
+import artisanOrderRoutes from './routes/artisanOrderRoutes.js';
+import { razorpayWebhook } from './controllers/orderController.js';
 
 // Base Express app. Feature routes/controllers are added phase-by-phase.
 const app = express();
@@ -20,6 +25,15 @@ app.use(
     credentials: true,
   })
 );
+
+// Razorpay webhook needs the raw body for signature verification — mount it
+// BEFORE the JSON parser.
+app.post(
+  '/api/checkout/webhook',
+  express.raw({ type: 'application/json' }),
+  razorpayWebhook
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -36,6 +50,10 @@ app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/artisan/products', artisanProductRoutes);
 app.use('/api/admin/products', adminProductRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/checkout', checkoutRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/artisan/orders', artisanOrderRoutes);
 
 // Central error handler.
 // eslint-disable-next-line no-unused-vars
