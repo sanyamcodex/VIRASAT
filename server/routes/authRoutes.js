@@ -24,6 +24,8 @@ router.post('/user/register', validate(registerSchema), auth.registerUser);
 router.post('/user/login', validate(loginSchema), auth.loginUser);
 router.post('/artisan/register', validate(registerSchema), auth.registerArtisan);
 router.post('/artisan/login', validate(loginSchema), auth.loginArtisan);
+// Admin has no registration route (seeded only) — but does need to log in.
+router.post('/admin/login', validate(loginSchema), auth.loginAdmin);
 router.post('/refresh', auth.refresh);
 router.post('/logout', auth.logout);
 

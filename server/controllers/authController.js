@@ -66,6 +66,7 @@ const makeLogin = (role) =>
 
 export const loginUser = makeLogin('user');
 export const loginArtisan = makeLogin('artisan');
+export const loginAdmin = makeLogin('admin');
 
 // --- Refresh (rotate refresh cookie, issue new access token) ---
 export const refresh = asyncHandler(async (req, res) => {

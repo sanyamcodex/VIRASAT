@@ -2,6 +2,7 @@ import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import mongoSanitize from 'express-mongo-sanitize';
 import passport from 'passport';
 import { configurePassport } from './config/passport.js';
 import authRoutes from './routes/authRoutes.js';
@@ -23,9 +24,22 @@ import { razorpayWebhook } from './controllers/orderController.js';
 const app = express();
 
 app.use(helmet());
+
+// CORS allowlist (never `*`). CLIENT_ORIGIN may be a comma-separated list.
+// Non-browser requests (no Origin) and dev localhost are allowed.
+const allowlist = (process.env.CLIENT_ORIGIN || '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
 app.use(
   cors({
-    origin: process.env.CLIENT_ORIGIN || true,
+    origin(origin, cb) {
+      if (!origin) return cb(null, true);
+      if (allowlist.includes(origin)) return cb(null, true);
+      if (process.env.NODE_ENV !== 'production' && /^http:\/\/localhost:\d+$/.test(origin))
+        return cb(null, true);
+      return cb(new Error('Not allowed by CORS'));
+    },
     credentials: true,
   })
 );
@@ -41,6 +55,9 @@ app.post(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// Strip keys containing `$`/`.` from body/query/params — blocks NoSQL operator injection.
+app.use(mongoSanitize());
 
 configurePassport();
 app.use(passport.initialize());
@@ -64,6 +81,11 @@ app.use('/api/artisan/orders', artisanOrderRoutes);
 app.use('/api/artisan', artisanDashboardRoutes);
 // Mounted after the more specific /api/admin/products routes above.
 app.use('/api/admin', adminDashboardRoutes);
+
+// JSON 404 for unmatched API routes.
+app.use((req, res) => {
+  res.status(404).json({ message: 'Not found' });
+});
 
 // Central error handler.
 // eslint-disable-next-line no-unused-vars
