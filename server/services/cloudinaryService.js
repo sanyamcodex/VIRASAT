@@ -1,10 +1,10 @@
 import cloudinary from '../config/cloudinary.js';
 
 // Streams a validated in-memory image buffer to Cloudinary.
-export const uploadBuffer = (buffer) =>
+export const uploadBuffer = (buffer, folder = 'virasat/products') =>
   new Promise((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream(
-      { folder: 'virasat/products', resource_type: 'image' },
+      { folder, resource_type: 'image' },
       (err, result) => {
         if (err) return reject(err);
         resolve({ url: result.secure_url, publicId: result.public_id });
@@ -13,19 +13,21 @@ export const uploadBuffer = (buffer) =>
     stream.end(buffer);
   });
 
-export const deleteImage = (publicId) =>
-  cloudinary.uploader.destroy(publicId);
+export const deleteImage = (publicId) => cloudinary.uploader.destroy(publicId);
 
-// Middleware: uploads any validated files and sets req.body.images = [{url, publicId}].
-export const processProductImages = async (req, res, next) => {
+// Builds a middleware that uploads any validated files and sets req.body[field].
+// No files → leaves req.body[field] unset so edits keep existing media.
+const makeImageProcessor = (field, folder) => async (req, res, next) => {
   try {
-    // No files uploaded: leave req.body.images unset so edits keep existing images.
     if (!req.files || req.files.length === 0) return next();
-    req.body.images = await Promise.all(
-      req.files.map((f) => uploadBuffer(f.buffer))
+    req.body[field] = await Promise.all(
+      req.files.map((f) => uploadBuffer(f.buffer, folder))
     );
     next();
   } catch (err) {
     next(err);
   }
 };
+
+export const processProductImages = makeImageProcessor('images', 'virasat/products');
+export const processProfilePhotos = makeImageProcessor('photos', 'virasat/artisans');

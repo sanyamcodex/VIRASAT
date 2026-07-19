@@ -13,6 +13,7 @@ import cartRoutes from './routes/cartRoutes.js';
 import checkoutRoutes from './routes/checkoutRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import artisanOrderRoutes from './routes/artisanOrderRoutes.js';
+import artisanDashboardRoutes from './routes/artisanDashboardRoutes.js';
 import { razorpayWebhook } from './controllers/orderController.js';
 
 // Base Express app. Feature routes/controllers are added phase-by-phase.
@@ -54,6 +55,8 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/checkout', checkoutRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/artisan/orders', artisanOrderRoutes);
+// Mounted after the more specific /api/artisan/* routes above.
+app.use('/api/artisan', artisanDashboardRoutes);
 
 // Central error handler.
 // eslint-disable-next-line no-unused-vars
