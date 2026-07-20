@@ -11,17 +11,21 @@ export const listCategories = asyncHandler(async (req, res) => {
 export const createCategory = asyncHandler(async (req, res) => {
   if (await Category.findOne({ name: req.body.name }))
     return res.status(409).json({ message: 'Category already exists' });
-  const category = await Category.create({ name: req.body.name });
+  const category = await Category.create({
+    name: req.body.name,
+    ...(req.body.image ? { image: req.body.image } : {}),
+  });
   res.status(201).json(category);
 });
 
 // PATCH /api/categories/:id — admin.
 export const updateCategory = asyncHandler(async (req, res) => {
-  const category = await Category.findByIdAndUpdate(
-    req.params.id,
-    { name: req.body.name },
-    { new: true, runValidators: true }
-  );
+  const update = { name: req.body.name };
+  if (req.body.image) update.image = req.body.image; // keep existing if none uploaded
+  const category = await Category.findByIdAndUpdate(req.params.id, update, {
+    new: true,
+    runValidators: true,
+  });
   if (!category) return res.status(404).json({ message: 'Category not found' });
   res.json(category);
 });

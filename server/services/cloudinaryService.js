@@ -31,3 +31,14 @@ const makeImageProcessor = (field, folder) => async (req, res, next) => {
 
 export const processProductImages = makeImageProcessor('images', 'virasat/products');
 export const processProfilePhotos = makeImageProcessor('photos', 'virasat/artisans');
+
+// Single-image variant for categories → sets req.body.image = { url, publicId }.
+export const processCategoryImage = async (req, res, next) => {
+  try {
+    if (!req.files || req.files.length === 0) return next();
+    req.body.image = await uploadBuffer(req.files[0].buffer, 'virasat/categories');
+    next();
+  } catch (err) {
+    next(err);
+  }
+};

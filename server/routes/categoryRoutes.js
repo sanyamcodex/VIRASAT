@@ -2,6 +2,8 @@ import { Router } from 'express';
 import { z } from 'zod';
 import { requireAuth, requireRole } from '../middleware/auth.js';
 import { validate } from '../middleware/validate.js';
+import { handleImageUpload } from '../middleware/upload.js';
+import { processCategoryImage } from '../services/cloudinaryService.js';
 import {
   listCategories,
   createCategory,
@@ -17,10 +19,11 @@ const featuredSchema = z.object({ featured: z.boolean() });
 
 router.get('/', listCategories); // public
 
-// Admin category management.
-router.post('/', requireAuth, requireRole('admin'), validate(categorySchema), createCategory);
-router.patch('/:id/featured', requireAuth, requireRole('admin'), validate(featuredSchema), setCategoryFeatured);
-router.patch('/:id', requireAuth, requireRole('admin'), validate(categorySchema), updateCategory);
+// Admin category management. Optional image via multipart (field "images").
+const admin = [requireAuth, requireRole('admin')];
+router.post('/', ...admin, handleImageUpload, validate(categorySchema), processCategoryImage, createCategory);
+router.patch('/:id/featured', ...admin, validate(featuredSchema), setCategoryFeatured);
+router.patch('/:id', ...admin, handleImageUpload, validate(categorySchema), processCategoryImage, updateCategory);
 router.delete('/:id', requireAuth, requireRole('admin'), deleteCategory);
 
 export default router;
