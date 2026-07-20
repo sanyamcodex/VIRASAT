@@ -52,14 +52,15 @@ export default function App() {
             <Route path="product/:id" element={<ProductDetail />} />
             <Route path="artisans/:id" element={<ArtisanStory />} />
             <Route path="cart" element={<Cart />} />
+            {/* Wishlist is a client-side (localStorage) feature — no auth required. */}
+            <Route path="wishlist" element={<Wishlist />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
 
-            {/* Buyer-only */}
+            {/* Buyer-only (need real auth + server data) */}
             <Route element={<ProtectedRoute roles={['user']} />}>
               <Route path="checkout" element={<Checkout />} />
               <Route path="orders" element={<Orders />} />
-              <Route path="wishlist" element={<Wishlist />} />
             </Route>
           </Route>
 
