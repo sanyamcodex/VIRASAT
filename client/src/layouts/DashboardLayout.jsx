@@ -28,7 +28,7 @@ export default function DashboardLayout({ title, items, loginPath = '/login', ch
         <Button
           variant="ghost"
           size="sm"
-          className="justify-start !text-cream/80 hover:bg-cream/10 hover:!text-cream"
+          className="mt-4 justify-start !text-cream hover:bg-cream/10 hover:!text-cream"
           onClick={async () => {
             await doLogout();
             navigate(loginPath);
