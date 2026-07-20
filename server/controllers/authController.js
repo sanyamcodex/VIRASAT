@@ -10,10 +10,14 @@ import {
 const REFRESH_COOKIE = 'refreshToken';
 
 // httpOnly refresh cookie, scoped to the auth path (CLAUDE.md Auth section).
+// In production the client (Vercel) and API (Render) are on different domains,
+// so the cookie must be SameSite=None; Secure to be sent cross-site. In dev
+// (same-origin via the Vite proxy) SameSite=Strict is fine.
+const isProd = process.env.NODE_ENV === 'production';
 const refreshCookieOptions = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === 'production',
-  sameSite: 'strict',
+  secure: isProd,
+  sameSite: isProd ? 'none' : 'strict',
   path: '/api/auth',
   maxAge: 7 * 24 * 60 * 60 * 1000,
 };
@@ -89,7 +93,11 @@ export const refresh = asyncHandler(async (req, res) => {
 
 // --- Logout (clear the refresh cookie) ---
 export const logout = (req, res) => {
-  res.clearCookie(REFRESH_COOKIE, { path: refreshCookieOptions.path });
+  res.clearCookie(REFRESH_COOKIE, {
+    path: refreshCookieOptions.path,
+    sameSite: refreshCookieOptions.sameSite,
+    secure: refreshCookieOptions.secure,
+  });
   res.json({ message: 'Logged out' });
 };
 

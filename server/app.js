@@ -23,6 +23,10 @@ import { razorpayWebhook } from './controllers/orderController.js';
 // Base Express app. Feature routes/controllers are added phase-by-phase.
 const app = express();
 
+// Behind Render's TLS-terminating proxy in production — needed for Secure
+// cookies and correct client IPs (rate limiting).
+if (process.env.NODE_ENV === 'production') app.set('trust proxy', 1);
+
 app.use(helmet());
 
 // CORS allowlist (never `*`). CLIENT_ORIGIN may be a comma-separated list.
