@@ -40,7 +40,7 @@ function ModerationRow({ product, categories, onChange }) {
     act(() => api.patch(`/admin/products/${product._id}/featured`, { featured: !product.featured }));
 
   return (
-    <div className="rounded-xl bg-white p-4 ring-1 ring-navy/5">
+    <div className="rounded-card bg-white p-4 shadow-sm ring-1 ring-navy/5">
       <div className="flex items-center gap-4">
         <div className="h-16 w-16 overflow-hidden rounded bg-navy/5">
           {product.images?.[0]?.url && (
@@ -49,7 +49,7 @@ function ModerationRow({ product, categories, onChange }) {
         </div>
         <div className="flex-1">
           <div className="font-display text-lg text-navy">{product.title}</div>
-          <div className="text-sm text-navy/60">
+          <div className="text-sm text-stone">
             {formatINR(product.price)} · {product.category?.name || '—'}
           </div>
         </div>

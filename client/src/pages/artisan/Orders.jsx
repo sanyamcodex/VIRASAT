@@ -24,19 +24,19 @@ export default function Orders() {
       {data?.length ? (
         <div className="mt-6 space-y-4">
           {data.map((o) => (
-            <div key={o._id} className="rounded-xl bg-white p-5 ring-1 ring-navy/5">
+            <div key={o._id} className="rounded-card bg-white p-5 shadow-sm ring-1 ring-navy/5">
               <div className="flex items-center justify-between border-b border-navy/10 pb-3">
-                <span className="font-mono text-xs text-navy/40">#{o._id.slice(-8)}</span>
-                <span className="text-sm text-navy/50">{formatDate(o.createdAt)}</span>
+                <span className="font-mono text-xs text-stone">#{o._id.slice(-8)}</span>
+                <span className="text-sm text-stone">{formatDate(o.createdAt)}</span>
               </div>
               <div className="mt-3 space-y-3">
                 {o.items.map((it) => (
                   <div key={it._id} className="flex items-center gap-4">
                     <div className="flex-1">
-                      <div className="text-navy">
+                      <div className="text-charcoal">
                         {it.title} × {it.quantity}
                       </div>
-                      <div className="text-sm text-navy/50">
+                      <div className="text-sm text-stone">
                         {formatINR((it.price || 0) * it.quantity)}
                       </div>
                     </div>

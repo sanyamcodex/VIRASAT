@@ -32,7 +32,7 @@ export default function Footer() {
         </div>
         {COLUMNS.map((col) => (
           <div key={col.title}>
-            <h4 className="font-display text-lg">{col.title}</h4>
+            <h4 className="font-display text-lg text-cream">{col.title}</h4>
             <ul className="mt-3 space-y-2 text-sm text-cream/70">
               {col.links.map((l) => (
                 <li key={l} className="hover:text-cream">

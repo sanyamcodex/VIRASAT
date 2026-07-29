@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,21 +6,78 @@
 
 :root {
   /* VIRASAT design tokens — consumed by tailwind.config.js */
+
+  /* Brand palette (primary) */
   --color-navy: #1b2a4a; /* primary / nav */
   --color-terracotta: #c9622b; /* accent / CTA */
   --color-cream: #f7f2e9; /* background */
   --color-gold: #c9a24b; /* highlights / badges */
+
+  /* Supporting neutrals — text hierarchy */
+  --color-charcoal: #2b2b2b; /* primary body text on light */
+  --color-stone: #8b8b8b; /* muted / secondary text, borders */
+
+  /* Sparing accent — badges / success states only */
+  --color-forest: #355e3b; /* success / verified */
+
+  /* Elevation — soft, warm editorial shadows */
+  --shadow-sm: 0 1px 2px rgba(27, 42, 74, 0.06);
+  --shadow: 0 4px 12px rgba(27, 42, 74, 0.08);
+  --shadow-md: 0 8px 24px rgba(27, 42, 74, 0.1);
+  --shadow-lg: 0 16px 40px rgba(27, 42, 74, 0.12);
+  --shadow-polaroid: 0 10px 30px rgba(27, 42, 74, 0.14);
 }
 
 body {
   background-color: var(--color-cream);
-  color: var(--color-navy);
+  color: var(--color-charcoal);
   font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5,
+h6 {
   font-family: 'Playfair Display', serif;
+  color: var(--color-navy);
+  letter-spacing: -0.01em;
+}
+
+/* ── Motion (phase 5) ──────────────────────────────────────────────
+   All animation is gated behind prefers-reduced-motion: no-preference,
+   so reduced-motion users get the final visible state with no movement. */
+@keyframes virasat-page-fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Per-route fade for storefront pages (keyed remount in the layout). */
+  .animate-page {
+    animation: virasat-page-fade 0.5s ease-out both;
+  }
+
+  /* Scroll-reveal: hidden until the observer adds .is-visible. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.6s ease-out,
+      transform 0.6s ease-out;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
 }

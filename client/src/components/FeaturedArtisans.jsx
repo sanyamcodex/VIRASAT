@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import Card from './ui/Card';
+import Reveal from './Reveal';
 
 // Homepage section for admin-curated featured artisans. Renders nothing when
 // there are none (or while loading / on error), so the homepage stays clean.
@@ -9,7 +10,7 @@ export default function FeaturedArtisans() {
   if (loading || error || !data?.length) return null;
 
   return (
-    <section className="mx-auto max-w-7xl px-6 py-16">
+    <Reveal as="section" className="mx-auto max-w-7xl px-6 py-16">
       <div className="text-center">
         <div className="text-xs uppercase tracking-[0.3em] text-terracotta">
           The hands behind the craft
@@ -57,6 +58,6 @@ export default function FeaturedArtisans() {
           );
         })}
       </div>
-    </section>
+    </Reveal>
   );
 }

@@ -40,23 +40,26 @@ export default function Users() {
       ) : error ? (
         <ErrorState message={error} />
       ) : data?.length ? (
-        <div className="mt-6 overflow-x-auto rounded-xl bg-white ring-1 ring-navy/5">
+        <div className="mt-6 overflow-x-auto rounded-card bg-white shadow-sm ring-1 ring-navy/5">
           <table className="w-full text-sm">
-            <thead className="border-b border-navy/10 text-left text-navy/50">
+            <thead className="border-b border-navy/10 bg-cream/40 text-left text-xs uppercase tracking-wider text-stone">
               <tr>
-                <th className="p-3">Name</th>
-                <th className="p-3">Email</th>
-                <th className="p-3">Role</th>
-                <th className="p-3">Status</th>
+                <th className="p-3 font-semibold">Name</th>
+                <th className="p-3 font-semibold">Email</th>
+                <th className="p-3 font-semibold">Role</th>
+                <th className="p-3 font-semibold">Status</th>
                 <th className="p-3"></th>
               </tr>
             </thead>
             <tbody>
               {data.map((u) => (
-                <tr key={u._id} className="border-b border-navy/5 last:border-0">
-                  <td className="p-3 text-navy">{u.name}</td>
-                  <td className="p-3 text-navy/60">{u.email}</td>
-                  <td className="p-3 capitalize text-navy/60">{u.role}</td>
+                <tr
+                  key={u._id}
+                  className="border-b border-navy/5 transition-colors last:border-0 hover:bg-cream/40"
+                >
+                  <td className="p-3 text-charcoal">{u.name}</td>
+                  <td className="p-3 text-stone">{u.email}</td>
+                  <td className="p-3 capitalize text-stone">{u.role}</td>
                   <td className="p-3">
                     {u.disabled ? (
                       <Badge variant="danger">Disabled</Badge>

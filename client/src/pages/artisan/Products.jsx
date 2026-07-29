@@ -47,7 +47,7 @@ export default function Products() {
             return (
               <div
                 key={p._id}
-                className="flex items-center gap-4 rounded-xl bg-white p-4 ring-1 ring-navy/5"
+                className="flex items-center gap-4 rounded-card bg-white p-4 shadow-sm ring-1 ring-navy/5 transition-shadow hover:shadow-md"
               >
                 <div className="h-16 w-16 overflow-hidden rounded bg-navy/5">
                   {p.images?.[0]?.url && (
@@ -56,7 +56,7 @@ export default function Products() {
                 </div>
                 <div className="flex-1">
                   <div className="font-display text-lg text-navy">{p.title}</div>
-                  <div className="text-sm text-navy/60">{formatINR(p.price)}</div>
+                  <div className="text-sm text-stone">{formatINR(p.price)}</div>
                   {p.status === 'rejected' && p.rejectionReason && (
                     <div className="mt-1 text-xs text-red-500">
                       Rejected: {p.rejectionReason}

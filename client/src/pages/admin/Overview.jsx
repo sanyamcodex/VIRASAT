@@ -39,7 +39,7 @@ export default function Overview() {
       </div>
 
       {/* Single-series bar chart — one brand hue, no legend (title names it). */}
-      <div className="mt-8 rounded-xl bg-white p-6 ring-1 ring-navy/5">
+      <div className="mt-8 rounded-card bg-white p-6 shadow-sm ring-1 ring-navy/5">
         <h2 className="font-display text-xl text-navy">Orders by status</h2>
         <div className="mt-4">
           <ResponsiveContainer width="100%" height={300}>

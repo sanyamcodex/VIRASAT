@@ -11,7 +11,7 @@ export default function CategoryCard({ category }) {
   return (
     <Link
       to={`/shop?category=${category._id}`}
-      className="group relative block overflow-hidden rounded-xl ring-1 ring-navy/10"
+      className="group relative block overflow-hidden rounded-card ring-1 ring-navy/10 shadow-sm transition duration-300 ease-out hover:-translate-y-1 hover:shadow-md"
     >
       <div className="relative aspect-[3/4]">
         {showImg ? (

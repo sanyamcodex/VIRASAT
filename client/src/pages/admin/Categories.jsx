@@ -90,7 +90,7 @@ export default function Categories() {
           {data.map((c) => (
             <div
               key={c._id}
-              className="flex items-center gap-3 rounded-xl bg-white p-4 ring-1 ring-navy/5"
+              className="flex items-center gap-3 rounded-card bg-white p-4 shadow-sm ring-1 ring-navy/5"
             >
               <div className="h-12 w-12 shrink-0 overflow-hidden rounded bg-navy/5">
                 {c.image?.url && (

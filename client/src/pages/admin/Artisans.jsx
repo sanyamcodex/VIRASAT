@@ -49,13 +49,13 @@ export default function Artisans() {
           {data.map((a) => (
             <div
               key={a._id}
-              className="flex items-center gap-4 rounded-xl bg-white p-4 ring-1 ring-navy/5"
+              className="flex items-center gap-4 rounded-card bg-white p-4 shadow-sm ring-1 ring-navy/5 transition-shadow hover:shadow-md"
             >
               <div className="flex-1">
                 <div className="font-display text-lg text-navy">
                   {a.user?.name || 'Unnamed artisan'}
                 </div>
-                <div className="text-sm text-navy/60">
+                <div className="text-sm text-stone">
                   {[a.craft, a.region].filter(Boolean).join(' · ') || a.user?.email}
                 </div>
               </div>

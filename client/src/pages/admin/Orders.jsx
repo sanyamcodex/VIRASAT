@@ -39,23 +39,26 @@ export default function Orders() {
       ) : error ? (
         <ErrorState message={error} />
       ) : data?.length ? (
-        <div className="mt-6 overflow-x-auto rounded-xl bg-white ring-1 ring-navy/5">
+        <div className="mt-6 overflow-x-auto rounded-card bg-white shadow-sm ring-1 ring-navy/5">
           <table className="w-full text-sm">
-            <thead className="border-b border-navy/10 text-left text-navy/50">
+            <thead className="border-b border-navy/10 bg-cream/40 text-left text-xs uppercase tracking-wider text-stone">
               <tr>
-                <th className="p-3">Order</th>
-                <th className="p-3">Customer</th>
-                <th className="p-3">Date</th>
-                <th className="p-3">Total</th>
-                <th className="p-3">Status</th>
+                <th className="p-3 font-semibold">Order</th>
+                <th className="p-3 font-semibold">Customer</th>
+                <th className="p-3 font-semibold">Date</th>
+                <th className="p-3 font-semibold">Total</th>
+                <th className="p-3 font-semibold">Status</th>
               </tr>
             </thead>
             <tbody>
               {data.map((o) => (
-                <tr key={o._id} className="border-b border-navy/5 last:border-0">
-                  <td className="p-3 font-mono text-xs text-navy/50">#{o._id.slice(-8)}</td>
-                  <td className="p-3 text-navy">{o.user?.name || '—'}</td>
-                  <td className="p-3 text-navy/60">{formatDate(o.createdAt)}</td>
+                <tr
+                  key={o._id}
+                  className="border-b border-navy/5 transition-colors last:border-0 hover:bg-cream/40"
+                >
+                  <td className="p-3 font-mono text-xs text-stone">#{o._id.slice(-8)}</td>
+                  <td className="p-3 text-charcoal">{o.user?.name || '—'}</td>
+                  <td className="p-3 text-stone">{formatDate(o.createdAt)}</td>
                   <td className="p-3 font-medium text-navy">{formatINR(o.total)}</td>
                   <td className="p-3">
                     <select
