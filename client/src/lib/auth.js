@@ -7,7 +7,9 @@ export const bootstrapAuth = async () => {
   const store = useAuthStore.getState();
   store.setStatus('loading');
   try {
-    const { data } = await api.post('/auth/refresh');
+    // Bounded so a hung refresh (e.g. cold-start / stalled connection) falls
+    // back to logged-out within ~9s instead of staying pending indefinitely.
+    const { data } = await api.post('/auth/refresh', null, { timeout: 9000 });
     store.setAccessToken(data.accessToken);
     if (useAuthStore.getState().role === 'user') useCartStore.getState().hydrate();
   } catch {

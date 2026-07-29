@@ -5,6 +5,11 @@ import { useAuthStore } from '../store/authStore';
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
   withCredentials: true, // send the refresh cookie
+  // Cap how long we hang on a stalled connection (e.g. Render free-tier cold
+  // start) so it surfaces as a timeout the caller can retry, instead of hanging
+  // indefinitely. 12s keeps the worst-case 3-attempt wait (~38s) reasonable
+  // while still giving a warming server time to respond.
+  timeout: 12000,
 });
 
 // Attach the current access token to every request.
