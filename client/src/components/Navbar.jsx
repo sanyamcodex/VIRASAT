@@ -4,7 +4,7 @@ import { useAuthStore } from '../store/authStore';
 import { useCartStore } from '../store/cartStore';
 import { doLogout } from '../lib/auth';
 import Button from './ui/Button';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo.jpg';
 
 const NAV = [
   { label: 'Home', to: '/' },
